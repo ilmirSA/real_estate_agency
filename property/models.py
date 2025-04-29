@@ -2,8 +2,8 @@ from django.db import models
 from django.utils import timezone
 
 BUILDING_CONDITION = (
-    (True, "Новостройка"),
-    (False, "Cтарое здание"),
+    (True, "Да"),
+    (False, "Нет"),
     (None, "Неизвестно"),
 )
 
@@ -18,7 +18,7 @@ class Flat(models.Model):
 
     description = models.TextField('Текст объявления', blank=True)
     price = models.IntegerField('Цена квартиры', db_index=True)
-    new_building = models.BooleanField(default=None, null=True, blank=True, choices=BUILDING_CONDITION)
+    new_building = models.BooleanField('Новостройка', default=None, null=True, blank=True, choices=BUILDING_CONDITION)
     town = models.CharField(
         'Город, где находится квартира',
         max_length=50,
