@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from phonenumber_field.modelfields import PhoneNumberField
 
 BUILDING_CONDITION = (
     (True, "Да"),
@@ -16,7 +17,8 @@ class Flat(models.Model):
         'Когда создано объявление',
         default=timezone.now,
         db_index=True)
-
+    owner_pure_phone = PhoneNumberField(verbose_name="Нормализированный номер владельца",blank=True,
+            null=True)
     description = models.TextField('Текст объявления', blank=True)
     price = models.IntegerField('Цена квартиры', db_index=True)
     new_building = models.BooleanField('Новостройка', default=None, null=True, blank=True, choices=BUILDING_CONDITION)
