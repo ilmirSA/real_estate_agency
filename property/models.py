@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 BUILDING_CONDITION = (
     (True, "Да"),
@@ -55,3 +56,29 @@ class Flat(models.Model):
 
     def __str__(self):
         return f'{self.town}, {self.address} ({self.price}р.)'
+
+
+class Plaint(models.Model):
+    who_complained = models.ForeignKey(User, verbose_name='Кто жаловался', on_delete=models.CASCADE, related_name='complaints')
+    apartment = models.ForeignKey(Flat, verbose_name='На какую квартиру жаловались', on_delete=models.CASCADE)
+    text_complaint = models.TextField(verbose_name='Текст Жалобы')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+
+# class Claim(models.Model):
+#     user = models.ForeignKey(
+#         User,
+#         on_delete=models.CASCADE,
+#         verbose_name='Кто жаловался',
+#         related_name='complaints',
+#         db_index=True)
+#     flat = models.ForeignKey(
+#         Flat,
+#         on_delete=models.CASCADE,
+#         verbose_name='Квартира, на которую жаловались',
+#         related_name='claims')
+#     text = models.TextField('Текст жалобы')
+#     created_at = models.DateTimeField(auto_now_add=True)
+#
+#     def __str__(self):
+#         return f'Жалоба от {self.user} на {self.flat}'

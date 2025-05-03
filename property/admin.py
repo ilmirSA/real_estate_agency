@@ -1,8 +1,9 @@
 from django.contrib import admin
 
-from .models import Flat
+from .models import Flat, Plaint
 
 
+@admin.register(Flat)
 class FlatAdmin(admin.ModelAdmin):
     search_fields = ('town',)
     readonly_fields = ["created_at",]
@@ -11,4 +12,13 @@ class FlatAdmin(admin.ModelAdmin):
     list_editable = ('new_building',)
 
 
-admin.site.register(Flat, FlatAdmin)
+@admin.register(Plaint)
+class Complaints(admin.ModelAdmin):
+    raw_id_fields = ('apartment',)
+    list_display = ('who_complained', 'apartment', 'text_complaint', 'created_at',)
+
+
+#
+# admin.site.register(Flat, FlatAdmin)
+# admin.site.register(Complaint)
+
