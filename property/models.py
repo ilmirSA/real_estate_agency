@@ -67,3 +67,13 @@ class Plaint(models.Model):
     text_complaint = models.TextField(verbose_name='Текст Жалобы')
     created_at = models.DateTimeField(auto_now_add=True)
 
+
+class Owner(models.Model):
+    name = models.CharField('ФИО владельца', max_length=200)
+    phone = models.CharField('Номер владельца', max_length=20)
+    pure_phone = PhoneNumberField(verbose_name="Нормализированный номер владельца", blank=True,
+                                        null=True)
+    flats = models.ManyToManyField("Flat", related_name="owners", verbose_name='Квартиры в собственности')
+
+    def __str__(self):
+        return self.name
