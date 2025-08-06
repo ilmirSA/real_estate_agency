@@ -1,7 +1,12 @@
 from django.contrib import admin
 
-from .models import Flat, Plaint,Owner
+from .models import Flat, Plaint, Owner
 
+
+class OwnerInline(admin.TabularInline):
+    model = Owner.flats.through
+    raw_id_fields = ('owner',)
+    extra = 3
 
 @admin.register(Flat)
 class FlatAdmin(admin.ModelAdmin):
@@ -24,4 +29,7 @@ class Complaints(admin.ModelAdmin):
 class Owner(admin.ModelAdmin):
     raw_id_fields = ('flats',)
     list_display = ('name', 'phone', 'pure_phone',)
+    inlines = [OwnerInline]
+
+
 
