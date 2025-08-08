@@ -63,7 +63,7 @@ class Flat(models.Model):
 
 class Plaint(models.Model):
     who_complained = models.ForeignKey(User, verbose_name='Кто жаловался', on_delete=models.CASCADE, related_name='complaints')
-    apartment = models.ForeignKey(Flat, verbose_name='На какую квартиру жаловались', on_delete=models.CASCADE)
+    apartment = models.ForeignKey(Flat, verbose_name='На какую квартиру жаловались', on_delete=models.CASCADE, related_name="apartamets")
     text_complaint = models.TextField(verbose_name='Текст Жалобы')
     created_at = models.DateTimeField(auto_now_add=True)
 
